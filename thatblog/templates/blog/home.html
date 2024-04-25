@@ -1,0 +1,42 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Side-car pour la navigation -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Navigation</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="">Tous les articles</a></li>
+                        <li class="list-group-item"><a href="">Toutes les catégories</a></li>
+                        <li class="list-group-item"><a href="">Créer un article</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Contenu principal -->
+        <div class="col-md-9">
+            <h2>Derniers articles aléatoires</h2>
+            <div class="row">
+                {% for article in random_articles %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        {% if article.img %}
+                            <img src="{{ article.img.url }}" class="card-img-top" alt="{{ article.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text">{{ article.content|truncatechars:50 }}</p>
+                            <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
